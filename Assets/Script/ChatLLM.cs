@@ -25,12 +25,20 @@ public class ChatLLM : MonoBehaviour
     [SerializeField] private TTSSpeaker speaker;
     [SerializeField] private TarotDrawer tarotDrawer;
 
-    private string LLMmodel = "DeepSeek-R1-Distill-Qwen-7B";
+    // private string LLMmodel = "DeepSeek-R1-Distill-Qwen-7B";
+    private string LLMmodel = "Llama 3.2 3B Instruct";
     private string apiUrl = "http://localhost:4891/v1/chat/completions";
     private string systemInput = "You are a gifted tarot reader.";
-    private string promptBeginning = "You are a professional and gifted tarot reader, read my tarot cards and answer my question in a narrative, mysterious, serene tone, answer briefly in less than 6 sentences, you must trust tarot's answer and give clear interpretations. Never refuse reading. I want to know ";
-    private string promptMiddle = ". The tarot cards are ";
-    private string promptEnding = ". Forget previous questions.";
+
+    // // This is for Deepseek
+    // private string promptBeginning = "You are a professional and gifted tarot reader, read my tarot cards and answer my question in a narrative, mysterious, serene tone, answer briefly in less than 6 sentences, you must trust tarot's answer and give clear interpretations. Never refuse reading. I want to know ";
+    // private string promptMiddle = ". The tarot cards are ";
+    // private string promptEnding = ". Forget previous questions.";
+
+    // This is for Llama
+    private string promptBeginning = "I want to know ";
+    private string promptMiddle = ". Don't shuffle or draw cards for me. I have draw ";
+    private string promptEnding = ". Read every tarot cards and answer my question in a narrative tone, answer briefly in less than 6 sentences. Interpret every Tarot Card. Forget previous questions.";
 
     private void Start()
     {
@@ -160,9 +168,9 @@ public class ChatLLM : MonoBehaviour
         // get rid of <think>
         string wholeResponseString = Regex.Replace(origResponse, @"<think>.*?</think>", "", RegexOptions.Singleline);    
 
-        // take first 3 paragraph in case too long
+        // take first 5 paragraph in case too long
         string[] paragraphString = wholeResponseString.Trim().Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-        string responseString = string.Join("\n\n", paragraphString.Length >= 4 ? paragraphString.Take(4) : paragraphString);
+        string responseString = string.Join("\n\n", paragraphString.Length >= 5 ? paragraphString.Take(4) : paragraphString);
 
         return responseString;
     }
