@@ -96,28 +96,20 @@ public class TarotDrawer : MonoBehaviour
             "King of Pentacles"
         };
 
-    public bool questionConfirmed;
 
     private void Start()
     {
-        questionConfirmed = false;
+
     }
 
     public void DrawTarot()
     {
-        // check if question is entered
-        if (!questionConfirmed)
-        {
-            Speak("Please write down the question you want to ask the Tarot.");
-            return;
-        }
-
         // get current tarot drawn set, if have 6 cards then prevent more draw
         string tarotDrawn = tarotDrawnTMP.text;
         HashSet<string> tarotDrawnSet = new HashSet<string>(tarotDrawn.Trim().Split('\n'));
         if (tarotDrawnSet.Count >= 3)
         {
-            Speak("You can draw at most three Tarot cards.");
+            Speak("You may draw at most three cards.");
             return;
         }
 

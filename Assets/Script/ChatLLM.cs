@@ -19,6 +19,12 @@ public class ChatLLM : MonoBehaviour
     [SerializeField] private TextMeshProUGUI confirmedQuestionTMP;
     [SerializeField] private TextMeshProUGUI tarotDrawnTMP;
     [SerializeField] private TextMeshProUGUI responseTMP;
+
+    [SerializeField] private GameObject QuestionPanel;
+    [SerializeField] private GameObject TarotPanel;
+    [SerializeField] private GameObject ReadingPanel;
+    [SerializeField] private GameObject backButton;
+
     [SerializeField] private Button confirmQButton;
     [SerializeField] private Button drawTarotButton;
     [SerializeField] private Button genReadingButton;
@@ -46,6 +52,11 @@ public class ChatLLM : MonoBehaviour
         confirmQButton.onClick.AddListener(ConfirmQuestion);
         drawTarotButton.onClick.AddListener(tarotDrawer.DrawTarot);
         genReadingButton.onClick.AddListener(SendMessageToLLM);
+        // backButton.onClick.AddListener(BackToBegin);
+
+        QuestionPanel.SetActive(true);
+        TarotPanel.SetActive(false);
+        ReadingPanel.SetActive(false);
     }
 
     private void ConfirmQuestion()
@@ -53,14 +64,17 @@ public class ChatLLM : MonoBehaviour
         string questionInput = questionInputField.text;
         if (questionInput == "")
         {
-            Speak("Please write down the question you want to ask the Tarot.");
+            Speak("Please inscribe your question.");
         }
         else
         {
-            speaker.Stop();
-            CleanUpHistory();
-            tarotDrawer.questionConfirmed = true;
             confirmedQuestionTMP.text = questionInput;
+
+            QuestionPanel.SetActive(false);
+            TarotPanel.SetActive(true);
+            ReadingPanel.SetActive(false);
+
+            Speak("Gather your spirit, and draw the Tarot. You may draw at most three cards.");
         }
     }
 
@@ -72,10 +86,36 @@ public class ChatLLM : MonoBehaviour
         if (prompt != null)
         {
             Debug.Log(prompt);
+
+            QuestionPanel.SetActive(false);
+            TarotPanel.SetActive(false);
+            ReadingPanel.SetActive(true);
+
+            backButton.SetActive(false);
+
+            Speak("The cards have whispered their truth. Please wait a moment, as I unravel its message for you.");
+
             StartCoroutine(SendRequest(prompt));
-            tarotDrawer.questionConfirmed = false;
         }
     }
+
+    public void BackToBegin()
+    {
+        CleanUpHistory();
+
+        QuestionPanel.SetActive(true);
+        TarotPanel.SetActive(false);
+        ReadingPanel.SetActive(false);
+
+        StartCoroutine(Wait());
+        Speak("Close your eyes, take a deep breath, write down the question you want to ask the Tarot.");
+    }
+
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1f);
+    }
+
 
     private void CleanUpHistory()
     {
@@ -91,14 +131,16 @@ public class ChatLLM : MonoBehaviour
         string tarotQuestion = confirmedQuestionTMP.text;
         if (tarotQuestion == "")
         {
-            Speak("Please write down the question you want to ask the Tarot.");
+            // Speak("Please write down the question you want to ask the Tarot.");
+            Debug.Log("No Question");
             return null;
         }
 
         string tarotDrawn = tarotDrawnTMP.text.Trim().Replace("\n", ", ");
         if (tarotDrawn == "")
         {
-            Speak("You need to draw at lease one tarot card for the divination.");
+            // Speak("You need to draw at lease one tarot card for the divination.");
+            Debug.Log("No Tarot");
             return null;
         }
 
@@ -150,6 +192,8 @@ public class ChatLLM : MonoBehaviour
                 {
                     string responseString = EditResponse(response.choices[0].message.content);
                     responseTMP.text = responseString;
+
+                    backButton.SetActive(true);
                     Debug.Log(responseString);
                     Speak(responseString);
                 }
