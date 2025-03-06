@@ -18,21 +18,21 @@ MonoBehaviour:
     m_Value: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 6.65
+    m_Value: 3.62
   intensity:
     m_OverrideState: 1
-    m_Value: 2.12
+    m_Value: 1.36
   scatter:
     m_OverrideState: 1
-    m_Value: 0.33
+    m_Value: 0.313
   clamp:
     m_OverrideState: 0
     m_Value: 65472
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.12452829, g: 0.058034874, b: 0.12386223, a: 1}
+    m_Value: {r: 0.7207546, g: 0.7207546, b: 0.7207546, a: 1}
   highQualityFiltering:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   downscale:
     m_OverrideState: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
     dimension: 1
   dirtIntensity:
     m_OverrideState: 1
-    m_Value: 2.46
+    m_Value: 13.8
 --- !u!114 &-3357603926938260329
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -109,7 +109,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.57
+    m_Value: 0.52
   xMultiplier:
     m_OverrideState: 0
     m_Value: 1
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 1
     m_Value: 1
@@ -195,16 +195,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29fa0085f50d5e54f8144f766051a691, type: 3}
   m_Name: FilmGrain
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   type:
     m_OverrideState: 1
     m_Value: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 0.68
+    m_Value: 0.985
   response:
-    m_OverrideState: 0
-    m_Value: 0.8
+    m_OverrideState: 1
+    m_Value: 0.77
   texture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -229,10 +229,10 @@ MonoBehaviour:
     m_Value: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 0.6
+    m_Value: 0.948
   clamp:
-    m_OverrideState: 0
-    m_Value: 0.05
+    m_OverrideState: 1
+    m_Value: 0.196
 --- !u!114 &8765362037068019788
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -251,13 +251,13 @@ MonoBehaviour:
     m_Value: 1
   gaussianStart:
     m_OverrideState: 1
-    m_Value: 12.5
+    m_Value: 5.16
   gaussianEnd:
     m_OverrideState: 1
-    m_Value: 28.3
+    m_Value: 25.4
   gaussianMaxRadius:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 1.5
   highQualitySampling:
     m_OverrideState: 0
     m_Value: 0

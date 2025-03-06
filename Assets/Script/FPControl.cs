@@ -14,7 +14,7 @@ public class FPControl : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked; // 锁定鼠标，使其不显示
+        // Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -33,11 +33,11 @@ public class FPControl : MonoBehaviour
 
         if (!characterController.isGrounded)
         {
-            velocity.y -= gravity * Time.deltaTime; // 模拟重力
+            velocity.y -= gravity * Time.deltaTime;
         }
         else
         {
-            velocity.y = -2f; // 使玩家保持贴地
+            velocity.y = -2f;
         }
 
         characterController.Move(velocity * Time.deltaTime);
@@ -51,7 +51,7 @@ public class FPControl : MonoBehaviour
         transform.Rotate(Vector3.up * mouseX);
 
         verticalRotation -= mouseY;
-        verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f); // 限制垂直角度范围
+        verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
         cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
     }
 }
