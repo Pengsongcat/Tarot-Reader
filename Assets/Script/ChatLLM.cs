@@ -44,7 +44,7 @@ public class ChatLLM : MonoBehaviour
     // This is for Llama
     private string promptBeginning = "I want to know ";
     private string promptMiddle = ". Don't shuffle or draw cards for me. I have draw ";
-    private string promptEnding = ". Read every tarot cards and answer my question in a narrative tone, answer briefly in less than 6 sentences. Interpret every Tarot Card. Forget previous questions.";
+    private string promptEnding = ". Read my tarot cards and answer my question in a narrative tone, answer briefly in less than 6 sentences. Forget previous questions.";
 
     private void Start()
     {
@@ -214,7 +214,7 @@ public class ChatLLM : MonoBehaviour
 
         // take first 5 paragraph in case too long
         string[] paragraphString = wholeResponseString.Trim().Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-        string responseString = string.Join("\n\n", paragraphString.Length >= 5 ? paragraphString.Take(4) : paragraphString);
+        string responseString = string.Join("\n\n", paragraphString.Length >= 10 ? paragraphString.Take(4) : paragraphString);
 
         return responseString;
     }
